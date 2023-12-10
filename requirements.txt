@@ -3,5 +3,3 @@ dash_bootstrap_components
 pandas
 gunicorn
 numpy
-json
-requests
