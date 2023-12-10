@@ -25,7 +25,7 @@ genres = list(
     sorted(set([genre for genres in movies.genres.unique() for genre in genres.split("|")]))
 )
 
-cosine_similarity_matrix = json.load(open("C:\\Users\\codie\\Downloads\\cosine_similarity_matrix.json"))
+cosine_similarity_matrix = json.loads(requests.get('https://raw.githubusercontent.com/codieschmidt/CS598Project4/main/cosine_similarity_matrix.json').content)
 
 movie_list_index = np.argsort(movies['movie_id'].unique())
 movie_list = np.take_along_axis(movies['movie_id'].unique(), movie_list_index, axis=0)
@@ -80,7 +80,7 @@ def get_recommended_movies(new_user_ratings):
 
 def get_popular_movies(genre: str):
     
-    recs = json.load(open("C:\\Users\\codie\\Downloads\\cosine_similarity_matrix.json"))
+    recs = json.loads(requests.get('https://raw.githubusercontent.com/codieschmidt/CS598Project4/main/genre_recommendations.json').content)
     recs = pd.DataFrame.from_dict(recs[genre]).rename(columns={"MovieID": "movie_id", "Title": "title"})
     recs = pd.DataFrame(recs, columns=['movie_id', 'title', 'rating'])
     
@@ -302,4 +302,4 @@ def update_button_recommened_visibility(values):
     return not list(filter(None, values))
 
 if __name__ == "__main__":
-    app.run_server(port=8080, debug=True)
+    app.run_server(debug=False)
