@@ -70,7 +70,7 @@ def get_recommended_movies(new_user_ratings):
     for i in range(10):            
         #print(sorted_prediciton_ratings_idx[i])
         top_10_movie_id.append(sorted_prediciton_ratings_idx[i])
-        top_10_movie_title.append(get_movie_name_from_index(predicted_ratings[sorted_prediciton_ratings_idx[i]][1], movies))
+        top_10_movie_title.append(movies[movies['movie_id'] == sorted_prediciton_ratings_idx[i]]['title'].values[0])
     
     d = {'movie_id': top_10_movie_id, 'title': top_10_movie_title}
     df = pd.DataFrame(data=d)
